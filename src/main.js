@@ -69,90 +69,21 @@ import { setupCounter } from './counter.js'
     fetchContacts();
 
 
-// if (!localStorage.getItem('isLoggedIn')) {
-//   window.location.href = '/dashbord.html'; // redirection vers la page de connexion
-// }
+if (!localStorage.getItem('isLoggedIn')) {
+  window.location.href = '/dashbord.html'; // redirection vers la page de connexion
+}
+const logout = document.getElementById('logout');
+logout.addEventListener('click', () => {
+  localStorage.removeItem('isLoggedIn'); // supprimer l'état de connexion
+  window.location.href = '/dashbord.html'; // redirection vers la page de connexion
+}
+);
         
 // // ================================================
 
 // // Configuration et données
-// const chatData = {
-//     currentChat: null,
-//     users: [
-//         {
-//             id: 1,
-//             name: "Sarah Johnson",
-//             avatar: "https://images.unsplash.com/photo-1494790108755-2616b332c3a7?w=150&h=150&fit=crop&crop=face",
-//             status: "online",
-//             lastSeen: "14:30",
-//             messages: [
-//                 { id: 1, text: "Salut ! Comment ça se passe ton projet ?", time: "14:25", sender: "received" },
-//                 { id: 2, text: "Ça avance bien ! Je suis en train de finaliser le design 🎨", time: "14:26", sender: "sent" },
-//                 { id: 3, text: "Super ! Tu utilises quoi comme couleurs ?", time: "14:27", sender: "received" },
-//                 { id: 4, text: "J'ai opté pour la palette Instagram ! Ça donne un look moderne et vibrant ✨", time: "14:28", sender: "sent" }
-//             ]
-//         },
-//         {
-//             id: 2,
-//             name: "Alex Martin",
-//             avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
-//             status: "offline",
-//             lastSeen: "Hier",
-//             messages: [
-//                 { id: 1, text: "Parfait ! On se voit demain alors", time: "Hier", sender: "received" }
-//             ]
-//         },
-//         {
-//             id: 3,
-//             name: "Emma Wilson",
-//             avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
-//             status: "online",
-//             lastSeen: "13:45",
-//             messages: [
-//                 { id: 1, text: "✨ Photo", time: "13:45", sender: "received", type: "image", imageUrl: "https://images.unsplash.com/photo-1561736778-92e52a7769ef?w=300&h=200&fit=crop" }
-//             ]
-//         },
-//         {
-//             id: 4,
-//             name: "Groupe Projets",
-//             avatar: null,
-//             initial: "G",
-//             status: "group",
-//             lastSeen: "12:20",
-//             messages: [
-//                 { id: 1, text: "Marc: Oui, c'est parfait !", time: "12:20", sender: "received" }
-//             ]
-//         }
-//     ]
-// };
 
-// // Utilitaires
-// const utils = {
-//     getCurrentTime() {
-//         return new Date().toLocaleTimeString('fr-FR', { 
-//             hour: '2-digit', 
-//             minute: '2-digit' 
-//         });
-//     },
 
-//     formatTime(time) {
-//         if (time === "Hier" || time === "online") return time;
-//         return time;
-//     },
-
-//     generateId() {
-//         return Date.now() + Math.random();
-//     },
-
-//     scrollToBottom(element) {
-//         element.scrollTop = element.scrollHeight;
-//     },
-
-//     addAnimation(element, animationClass = 'animate-slideIn') {
-//         element.classList.add(animationClass);
-//         setTimeout(() => element.classList.remove(animationClass), 300);
-//     }
-// };
 
 // // Gestion des chats
 // const chatManager = {
