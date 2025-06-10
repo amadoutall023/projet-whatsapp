@@ -69,19 +69,19 @@ import { setupCounter } from './counter.js'
     fetchContacts();
 
 
-if (!localStorage.getItem('isLoggedIn')) {
-  window.location.href = '/dashbord.html'; // redirection vers la page de connexion
-}
-const logout = document.getElementById('logout');
-logout.addEventListener('click', () => {
-  localStorage.removeItem('isLoggedIn'); // supprimer l'état de connexion
-  window.location.href = '/dashbord.html'; // redirection vers la page de connexion
-}
-);
+// if (!localStorage.getItem('isLoggedIn')) {
+//   window.location.href = '/dashbord.html'; // redirection vers la page de connexion
+// }
+// const logout = document.getElementById('logout');
+// logout.addEventListener('click', () => {
+//   localStorage.removeItem('isLoggedIn'); // supprimer l'état de connexion
+//   window.location.href = '/dashbord.html'; // redirection vers la page de connexion
+// }
+// );
         
-// // ================================================
+// // // ================================================
 
-// // Configuration et données
+// // // Configuration et données
 
 
 
