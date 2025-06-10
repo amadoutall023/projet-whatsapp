@@ -1,0 +1,15 @@
+{
+   "contacts": [
+    { "id": 1, "name": "Alice", "avatar": "👩‍💼" },
+    { "id": 2, "name": "Bob", "avatar": "👨‍💻" },
+    { "id": 3, "name": "Charlie", "avatar": "👨‍🔬" }
+  ],
+  "messages": [{
+    "id": 1,
+  "from": "alice",
+  "to": "bob",
+  "content": "Salut !",
+  "timestamp": "2025-06-10T15:30:00",
+  "status": "sent" 
+}]
+}
