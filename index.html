@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -6,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WhatsApp Clone - Instagram Colors</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         
@@ -55,47 +55,113 @@
             0%, 100% { opacity: 1; }
             50% { opacity: 0.5; }
         }
+
+        .menu-item {
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .menu-item:hover {
+            background-color: #f0f2f5;
+        }
+
+        .menu-item.active {
+            background-color: #e5f4e3;
+            border-right: 3px solid #00a884;
+        }
+
+        .menu-tooltip {
+            position: absolute;
+            left: 70px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #333;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            z-index: 1000;
+        }
+
+        .menu-tooltip::before {
+            content: '';
+            position: absolute;
+            right: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 6px solid transparent;
+            border-right-color: #333;
+        }
+
+        .menu-item:hover .menu-tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
     </style>
 </head>
 <body class="bg-gray-100 h-screen overflow-hidden">
     <div class="flex h-full">
-        <!-- Sidebar -->
-          <div id="part1" class="w-[5%] h-full bg-white flex-col flex justify-center items-center">
+        <!-- Sidebar Menu -->
+        <div id="part1" class="w-[60px] h-full bg-[#f0f2f5] border-r border-gray-300 flex flex-col">
+            <!-- Profile Section -->
+            <div class="p-3 border-b border-gray-300">
+                <div class="w-10 h-10 rounded-full bg-gray-400 overflow-hidden cursor-pointer hover:opacity-80 transition-opacity">
+                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=40&h=40&fit=crop&crop=face" 
+                         alt="Profile" class="w-full h-full object-cover">
+                </div>
+            </div>
 
-      <div id="menu" class="w-[90%] h-[50%]  flex flex-col justify-between items-center p-1">
-        <div id="icone1"
-          class="w-[100%] h-[16%]  rounded-md border border-orange-400 flex flex-col justify-center items-center hover:bg-orange-500">
-          <i class="fa-solid fa-message text-2xl"></i>
-          <p class="text-sm">message</p>
-        </div>
-        <div id="icone2"
-          class="w-[100%] h-[16%]  rounded-md border border-orange-400 flex flex-col justify-center items-center hover:bg-orange-500">
-          <i class="fa-solid fa-user-group text-2xl"></i>
-          <p class="text-sm">groupes</p>
-        </div>
-        <div id="icone3"
-          class="w-[100%] h-[16%]  rounded-md border border-orange-400 flex flex-col justify-center items-center hover:bg-orange-500">
-          <i class="fas fa-broadcast-tower text-black text-2xl"></i>
-          <p class="text-sm">diffusion</p>
-        </div>
-        <div id="btn-archive"
-        
-          class="w-[100%] h-[16%]  rounded-md border border-orange-400 flex flex-col justify-center items-center hover:bg-orange-500">
-          <i class="fas fa-archive text-black  text-2xl"></i>
-          <p class="text-sm">archive</p>
-        </div>
-        
+            <!-- Menu Items -->
+            <div id="menu" class="flex-1 py-2">
+                <div class="menu-item active p-3 cursor-pointer flex justify-center items-center" data-tab="chats">
+                    <i class="fas fa-comment-dots text-[#54656f] text-xl"></i>
+                    <div class="menu-tooltip">Discussions</div>
+                </div>
+                
+                <div class="menu-item p-3 cursor-pointer flex justify-center items-center" data-tab="status">
+                    <i class="fas fa-circle-notch text-[#54656f] text-xl"></i>
+                    <div class="menu-tooltip">Statuts</div>
+                </div>
+                
+                <div class="menu-item p-3 cursor-pointer flex justify-center items-center" data-tab="channels">
+                    <i class="fas fa-bullhorn text-[#54656f] text-xl"></i>
+                    <div class="menu-tooltip">Chaînes</div>
+                </div>
+                
+                <div class="menu-item p-3 cursor-pointer flex justify-center items-center" data-tab="communities">
+                    <i class="fas fa-users text-[#54656f] text-xl"></i>
+                    <div class="menu-tooltip">Communautés</div>
+                </div>
+            </div>
 
-        <div id="icone4"
-          class="w-[100%] h-[16%]  rounded-md border border-orange-400 flex flex-col justify-center items-center hover:bg-orange-500">
-          <i class="fa-solid fa-plus  text-black  text-2xl"></i>
-          <p class="text-sm">nouveau</p>
+            <!-- Bottom Menu Items -->
+            <div class="border-t border-gray-300 py-2">
+                <div class="menu-item p-3 cursor-pointer flex justify-center items-center" data-tab="archived">
+                    <i class="fas fa-archive text-[#54656f] text-xl"></i>
+                    <div class="menu-tooltip">Archivées</div>
+                </div>
+                
+                <div class="menu-item p-3 cursor-pointer flex justify-center items-center" data-tab="starred">
+                    <i class="fas fa-star text-[#54656f] text-xl"></i>
+                    <div class="menu-tooltip">Messages favoris</div>
+                </div>
+                
+                <div class="menu-item p-3 cursor-pointer flex justify-center items-center" data-tab="settings">
+                    <i class="fas fa-cog text-[#54656f] text-xl"></i>
+                    <div class="menu-tooltip">Paramètres</div>
+                </div>
+                
+                <div class="menu-item p-3 cursor-pointer flex justify-center items-center" data-tab="logout">
+                    <i class="fas fa-sign-out-alt text-[#54656f] text-xl"></i>
+                    <div class="menu-tooltip">Se déconnecter</div>
+                </div>
+            </div>
         </div>
 
-
-      </div>
-
-    </div>
         <div class="w-1/3 bg-white border-r border-gray-200 flex flex-col">
             <!-- Header -->
             <div class="instagram-gradient p-4 text-white">
@@ -202,25 +268,41 @@
             </div>
         </div>
     </div>
+
     <!-- Formulaire d'ajout -->
-<div  class="p-4 bg-white rounded shadow w-full max-w-md mx-auto">
-  <h2 class="text-xl font-semibold mb-4">Ajouter un contact</h2>
-  <form id="contact-form" class="space-y-4">
-    <input type="text" id="nom" placeholder="Nom" required class="w-full border rounded p-2" />
-    <input type="text" id="prenom" placeholder="Prénom" required class="w-full border rounded p-2" />
-    <input type="tel" id="telephone" placeholder="Téléphone" required class="w-full border rounded p-2" />
-    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Ajouter</button>
-  </form>
-</div>
+    <div class="p-4 bg-white rounded shadow w-full max-w-md mx-auto">
+        <h2 class="text-xl font-semibold mb-4">Ajouter un contact</h2>
+        <form id="contact-form" class="space-y-4">
+            <input type="text" id="nom" placeholder="Nom" required class="w-full border rounded p-2" />
+            <input type="text" id="prenom" placeholder="Prénom" required class="w-full border rounded p-2" />
+            <input type="tel" id="telephone" placeholder="Téléphone" required class="w-full border rounded p-2" />
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Ajouter</button>
+        </form>
+    </div>
 
-<!-- Liste des contacts -->
-<div class="p-4 mt-6 bg-white rounded shadow w-full max-w-md mx-auto">
-  <h2 class="text-xl font-semibold mb-4">Liste des contacts</h2>
-  <ul id="contact-list" class="space-y-2"></ul>
-</div>
-
-
-    <script type="module" src="/src/main.js"></script>
-    
+    <!-- Liste des contacts -->
+    <div class="p-4 mt-6 bg-white rounded shadow w-full max-w-md mx-auto">
+        <h2 class="text-xl font-semibold mb-4">Liste des contacts</h2>
+        <ul id="contact-list" class="space-y-2"></ul>
+    </div>
+<script type="module" src="/src/main.js"></script>
+    <!-- <script>
+        // Gestion des onglets du menu
+        document.querySelectorAll('.menu-item').forEach(item => {
+            item.addEventListener('click', function() {
+                // Retirer la classe active de tous les éléments
+                document.querySelectorAll('.menu-item').forEach(el => el.classList.remove('active'));
+                
+                // Ajouter la classe active à l'élément cliqué
+                this.classList.add('active');
+                
+                // Récupérer l'onglet sélectionné
+                const tab = this.getAttribute('data-tab');
+                console.log('Onglet sélectionné:', tab);
+                
+                // Ici vous pouvez ajouter la logique pour changer le contenu selon l'onglet
+            });
+        });
+    </script> -->
 </body>
 </html>
