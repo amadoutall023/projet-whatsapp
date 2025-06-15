@@ -142,14 +142,34 @@ export async function renderDashboard(container) {
             <!-- Messages s'afficheront ici -->
           </div>
 
-          <!-- Message Input -->
-          <div class="p-4 border-t border-gray-300 bg-white flex items-center space-x-4">
-            <input id="messageInput" type="text" placeholder="Écrire un message..." 
-                   class="flex-1 px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
-            <button id="sendMessageBtn" class="bg-blue-600 text-white p-2 rounded-full hover:bg-blue-700 transition-colors">
-              <i class="fas fa-paper-plane"></i>
-            </button>
-          </div>
+             <div class="bg-white border-t border-gray-200 p-4">
+                <div class="flex items-center space-x-3">
+                    <button class="p-2 rounded-full hover:bg-gray-100 transition-colors">
+                        <svg class="w-6 h-6 text-gray-600" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/>
+                        </svg>
+                    </button>
+                    <button class="p-2 rounded-full hover:bg-gray-100 transition-colors">
+                        <svg class="w-6 h-6 text-gray-600" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+                        </svg>
+                    </button>
+                    <div class="flex-1 relative">
+                        <input type="text" id="messageInput" placeholder="Tapez votre message..." 
+                               class="w-full bg-gray-100 rounded-full px-4 py-2 pr-12 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:bg-white transition-all">
+                        <button class="absolute right-2 top-1/2 transform -translate-y-1/2 p-1 rounded-full hover:bg-gray-200 transition-colors">
+                            <svg class="w-5 h-5 text-gray-600" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <button class="instagram-gradient p-3 rounded-full text-white hover:shadow-lg transition-all transform hover:scale-105">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
         </div>
       </div>
     `;
