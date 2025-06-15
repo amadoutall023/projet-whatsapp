@@ -7,17 +7,7 @@
 let currentTab = 'qr';
 let verificationStep = false;
 let scanInterval;
-document.getElementById('submitText').addEventListener('click', (e) => {
-  e.preventDefault();
-  const num = document.getElementById('num').value.trim();
 
-  if (num === '784541151') {
-    localStorage.setItem('isLoggedIn', 'true'); // marque l'utilisateur comme connecté
-    window.location.href = '/index.html';       // redirection vers l'app
-  } else {
-    num.classList.add('border-red-500'); // ajoute une bordure rouge si le numéro est incorrect
-  }
-});
 
 
  const qrBtn = document.getElementById("qrBtn");
@@ -341,4 +331,16 @@ document.addEventListener('DOMContentLoaded', function() {
 // Nettoyage lors de la fermeture de la page
 window.addEventListener('beforeunload', function() {
     stopQRAnimation();
+});
+
+document.getElementById('submitText').addEventListener('click', (e) => {
+  e.preventDefault();
+  const num = document.getElementById('num').value.trim();
+
+  if (num === '784541151') {
+    localStorage.setItem('isLoggedIn', 'true'); // marque l'utilisateur comme connecté
+    window.location.href = '/index.html';       // redirection vers l'app
+  } else {
+    num.classList.add('border-red-500'); // ajoute une bordure rouge si le numéro est incorrect
+  }
 });
