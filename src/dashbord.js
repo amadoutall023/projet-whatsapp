@@ -1,3 +1,5 @@
+import { renderLogin } from './vieuws/login.vieuw.js';
+
 /**
  * Script de gestion de la connexion WhatsApp
  * Gère l'authentification par numéro et par formulaire avec code de vérification
@@ -15,6 +17,11 @@ let scanInterval;
     const qrSection = document.getElementById("qrSection");
     const formSection = document.getElementById("formSection");
     const loginForm = document.getElementById("loginForm");
+    const déconnecter = document.getElementById("logout");
+
+   
+   
+
 
     // Toggle entre QR et téléphone
     qrBtn.addEventListener("click", () => {
@@ -100,10 +107,7 @@ function handleDirectLogin(e) {
 
 // Gestion de la déconnexion
 function handleLogout() {
-    // localStorage.removeItem('isLoggedIn');
-    // window.location.href = '/dashbord.html';
-    console.log('Déconnexion effectuée');
-    showSuccess('Déconnexion réussie');
+    renderLogin(appusers);
 }
 
 // Animation du scan QR

@@ -62,7 +62,7 @@ export async function renderDashboard(container) {
               <div class="menu-tooltip">Paramètres</div>
             </div>
             
-            <div id="logout" class="menu-item p-3 cursor-pointer flex justify-center items-center" data-tab="logout">
+            <div id="logout" onclick="logout()" class="menu-item p-3 cursor-pointer flex justify-center items-center" data-tab="logout">
               <i class="fas fa-sign-out-alt text-[#54656f] text-xl"></i>
               <div class="menu-tooltip">Se déconnecter</div>
             </div>
@@ -82,12 +82,12 @@ export async function renderDashboard(container) {
                 <h1 class="text-xl font-bold">WhatsApp</h1>
               </div>
               <div class="flex space-x-2">
-                <button class="p-2 rounded-full hover:bg-white/20 transition-colors">
+                <button id="popup" class="p-2 rounded-full hover:bg-white/20 transition-colors">
                   <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/>
                   </svg>
                 </button>
-                <button class="p-2 rounded-full hover:bg-white/20 transition-colors">
+                <button  class="p-2 rounded-full hover:bg-white/20 transition-colors">
                   <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
                   </svg>
@@ -163,7 +163,7 @@ export async function renderDashboard(container) {
                             </svg>
                         </button>
                     </div>
-                    <button class="instagram-gradient p-3 rounded-full text-white hover:shadow-lg transition-all transform hover:scale-105">
+                    <button onclick="handleSend()" class="instagram-gradient p-3 rounded-full text-white hover:shadow-lg transition-all transform hover:scale-105">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
                         </svg>
@@ -172,12 +172,95 @@ export async function renderDashboard(container) {
             </div>
         </div>
       </div>
+      <!-- Modale d'ajout de contact -->
+<div id="addContactModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+  <div class="bg-white w-full max-w-md rounded-lg shadow-lg p-6 relative">
+    <button id="closeModal" class="absolute top-3 right-3 text-gray-500 hover:text-gray-800 text-xl">&times;</button>
+    <h2 class="text-xl font-bold mb-4 text-gray-800">Ajouter un contact</h2>
+    
+    <form id="addContactForm" class="space-y-4">
+      <div>
+        <label class="block text-gray-600 mb-1">Nom complet</label>
+        <input type="text" id="contactName" class="w-full border rounded px-4 py-2 focus:ring focus:ring-blue-500" required>
+      </div>
+      <div>
+        <label class="block text-gray-600 mb-1">Téléphone</label>
+        <input type="text" id="contactPhone" class="w-full border rounded px-4 py-2 focus:ring focus:ring-blue-500" required>
+      </div>
+      <div class="text-right">
+        <button type="submit" class="instagram-gradient text-white px-4 py-2 rounded hover:bg-blue-600">
+          Ajouter
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
     `;
 
 
     app.innerHTML = appHTML;
 fetchMessages();
 fetchContacts();
+selectContact();
+const messageInput = document.getElementById('messageInput'); // or whatever your input ID is
+const messageContent = messageInput.value;
+await sendMessage(messageContent);
+displayMessages();
+//  selectContact(contact);
+//     displayMessages();
+document.getElementById("popup").addEventListener("click", () => {
+  document.getElementById("addContactModal").classList.remove("hidden");
+});
+
+document.getElementById("closeModal").addEventListener("click", () => {
+  document.getElementById("addContactModal").classList.add("hidden");
+});
+
+document.getElementById("addContactForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const name = document.getElementById("contactName").value.trim();
+  const phone = document.getElementById("contactPhone").value.trim();
+let valid = true;
+
+    // Vérifie le nom
+    if (!name) {
+      contactName.style.borderColor = "red";
+      valid = false;
+    }
+
+    // Vérifie le numéro
+    if (!phone || isNaN(phone) || !Number.isInteger(Number(phone))) {
+      contactPhone.style.borderColor = "red";
+      valid = false;
+    }
+
+    if (!valid) return;
+
+    try {
+      const res = await fetch("https://json-server-lt3n.onrender.com/contacts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, phone })
+      });
+
+      if (res.ok) {
+        addContactModal.classList.add("hidden");
+        addContactForm.reset();
+        fetchContacts(); // Recharge les contacts
+      } else {
+        contactName.style.borderColor = "red";
+        contactPhone.style.borderColor = "red";
+      }
+    } catch (err) {
+      console.error(err);
+      contactName.style.borderColor = "red";
+      contactPhone.style.borderColor = "red";
+    }
+  
+});
+
   } catch (error) {
     console.error("Erreur lors du chargement des données :", error);
     app.innerHTML = `<p class="text-red-500 p-4">Erreur lors du chargement du tableau de bord</p>`;
