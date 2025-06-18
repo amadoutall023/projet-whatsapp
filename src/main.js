@@ -509,7 +509,7 @@ async function archiverElement(isGroup = false) {
 // Fonction pour afficher les éléments archivés
 async function afficherArchives() {
   try {
-    const response = await fetch(`${API_BASE_URL}/archives`);
+    const response = await fetch(`http://localhost:3002/archives`);
     if (!response.ok) {
       // Si l'endpoint n'existe pas encore, créer une collection vide
       if (response.status === 404) {
@@ -604,7 +604,7 @@ function afficherListeArchivesVide() {
 async function restaurerElement(archiveId, isGroup = false) {
   try {
     // Récupérer l'élément archivé
-    const response = await fetch(`${API_BASE_URL}/archives/${archiveId}`);
+    const response = await fetch(`http://localhost:3002/archives/${archiveId}`);
     if (!response.ok) throw new Error('Archive non trouvée');
     
     const archivedItem = await response.json();
@@ -621,7 +621,7 @@ async function restaurerElement(archiveId, isGroup = false) {
     
     // Restaurer dans la collection appropriée
     const endpoint = isGroup ? 'groups' : 'contacts';
-    const restoreResponse = await fetch(`${API_BASE_URL}/${endpoint}`, {
+    const restoreResponse = await fetch(`http://localhost:3002/${endpoint}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(restoredData)
@@ -629,7 +629,7 @@ async function restaurerElement(archiveId, isGroup = false) {
     
     if (restoreResponse.ok) {
       // Supprimer de la liste des archives
-      const deleteResponse = await fetch(`${API_BASE_URL}/archives/${archiveId}`, {
+      const deleteResponse = await fetch(`http://localhost:3002/archives/${archiveId}`, {
         method: 'DELETE'
       });
       
