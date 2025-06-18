@@ -282,7 +282,7 @@ function logout() {
 
 async function afficherGroupesDansContactsList() {
   try {
-    const response = await fetch(`${API_BASE_URL}/groups`);
+    const response = await fetch(`https://json-server-lt3n.onrender.com/groups`);
     if (!response.ok) throw new Error("Endpoint /groups introuvable");
 
     const groupes = await response.json();
