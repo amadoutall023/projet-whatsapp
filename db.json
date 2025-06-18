@@ -1,41 +1,333 @@
 {
   "contacts": [
-       {
-      "id": 1,
+    {
+      "id": "1",
       "name": "papa",
       "avatar": "👩‍💼",
       "phone": "784541151",
       "online": true,
-      "idcontacts": [2, 3],   
-      "messages": [1, 2]
+      "idcontacts": [
+        2,
+        3
+      ],
+      "messages": [
+        1,
+        2
+      ],
+      "archived": false
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Bob",
       "avatar": "👨‍💻",
       "phone": "777-333-444",
       "online": false,
-      "idcontacts": [1],
-      "messages": [3]
-    },
-    {
-      "id": 3,
-      "name": "Charlie",
-      "avatar": "👨‍🔬",
-      "phone": "777-555-666",
-      "online": true,
-      "idcontacts": [1],
-      "messages": []
+      "idcontacts": [
+        1
+      ],
+      "messages": [
+        3
+      ],
+      "archived": false
     }
   ],
   "messages": [
     {
-      "id": 1,
+      "id": "1",
       "from": "alice",
       "to": "bob",
       "content": "Salut !",
       "timestamp": "2025-06-10T15:30:00",
       "status": "sent"
+    },
+    {
+      "id": "3789",
+      "from": "alice",
+      "to": "zz",
+      "content": "zzz",
+      "timestamp": "2025-06-18T15:31:17.012Z"
+    },
+    {
+      "id": "1ab5",
+      "from": "alice",
+      "to": "Charlie",
+      "content": "s",
+      "timestamp": "2025-06-18T15:45:42.452Z"
+    },
+    {
+      "id": "f981",
+      "from": "alice",
+      "to": "ddd",
+      "content": "qq",
+      "timestamp": "2025-06-18T16:51:02.363Z"
+    },
+    {
+      "id": "d6b3",
+      "from": "alice",
+      "to": "sss",
+      "content": "ss",
+      "timestamp": "2025-06-18T17:09:54.804Z"
+    }
+  ],
+  "groups": [
+    {
+      "id": "1",
+      "name": "Friends",
+      "avatar": "👥",
+      "members": [
+        1,
+        2
+      ],
+      "messages": [
+        1
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Family",
+      "avatar": "👪",
+      "members": [
+        1,
+        3
+      ],
+      "messages": []
+    },
+    {
+      "id": "1fa5",
+      "name": "sss",
+      "avatar": "👥",
+      "members": [
+        1,
+        2,
+        3
+      ],
+      "messages": []
+    },
+    {
+      "id": "5a21",
+      "name": "zz",
+      "avatar": "👥",
+      "members": [
+        1,
+        2
+      ],
+      "messages": []
+    },
+    {
+      "id": "b41d",
+      "name": "zz",
+      "avatar": "👥",
+      "members": [
+        1,
+        2
+      ],
+      "messages": []
+    },
+    {
+      "id": "5384",
+      "name": "ee",
+      "avatar": "👥",
+      "members": [
+        1,
+        2
+      ],
+      "messages": []
+    },
+    {
+      "id": "fd6b",
+      "name": "ee",
+      "avatar": "👥",
+      "members": [
+        1,
+        2
+      ],
+      "messages": []
+    },
+    {
+      "id": "cdef",
+      "name": "qq",
+      "avatar": "👥",
+      "members": [
+        2,
+        3
+      ],
+      "messages": []
+    },
+    {
+      "id": "6b65",
+      "name": "dd",
+      "avatar": "👥",
+      "members": [
+        1,
+        2
+      ],
+      "messages": []
+    },
+    {
+      "id": "1ae4",
+      "name": "ww",
+      "avatar": "👥",
+      "members": [
+        1,
+        2
+      ],
+      "messages": []
+    },
+    {
+      "id": "2fee",
+      "name": "sss",
+      "avatar": "👥",
+      "members": [
+        1,
+        2
+      ],
+      "messages": []
+    },
+    {
+      "id": "b995",
+      "name": "sss",
+      "avatar": "👥",
+      "members": [
+        1,
+        2
+      ],
+      "messages": []
+    },
+    {
+      "id": "2b00",
+      "name": "ss",
+      "avatar": "👪",
+      "members": [
+        1,
+        2
+      ],
+      "messages": []
+    },
+    {
+      "id": "fef7",
+      "name": "ss",
+      "avatar": "👪",
+      "members": [
+        1,
+        2
+      ],
+      "messages": []
+    },
+    {
+      "id": "0dc6",
+      "name": "qq",
+      "avatar": "👪",
+      "members": [
+        1,
+        2
+      ],
+      "messages": []
+    },
+    {
+      "id": "20c0",
+      "name": "qq",
+      "avatar": "👪",
+      "members": [
+        1,
+        2
+      ],
+      "messages": []
+    },
+    {
+      "id": "f3ec",
+      "name": "zz",
+      "avatar": "👪",
+      "members": [
+        1,
+        2
+      ],
+      "messages": []
+    },
+    {
+      "id": "3544",
+      "name": "zz",
+      "avatar": "👪",
+      "members": [
+        1,
+        2
+      ],
+      "messages": []
+    }
+  ],
+  "archives": [
+    {
+      "id": 1750272400764,
+      "originalId": 3,
+      "name": "Charlie",
+      "avatar": "👨‍🔬",
+      "phone": null,
+      "isGroup": false,
+      "archivedDate": "2025-06-18T18:46:40.764Z",
+      "originalData": {
+        "id": 3,
+        "name": "Charlie",
+        "avatar": "👨‍🔬"
+      }
+    },
+    {
+      "id": 1750272625877,
+      "originalId": 6,
+      "name": "sqss",
+      "avatar": "👤",
+      "phone": "784541151",
+      "isGroup": false,
+      "archivedDate": "2025-06-18T18:50:25.877Z",
+      "originalData": {
+        "name": "sqss",
+        "phone": "784541151",
+        "id": 6
+      }
+    },
+    {
+      "id": 1750272939567,
+      "originalId": 4,
+      "name": "ss",
+      "avatar": "👤",
+      "phone": "784541151",
+      "isGroup": false,
+      "archivedDate": "2025-06-18T18:55:39.568Z"
+    },
+    {
+      "id": 1750272945946,
+      "originalId": 5,
+      "name": "ddd",
+      "avatar": "👤",
+      "phone": "555",
+      "isGroup": false,
+      "archivedDate": "2025-06-18T18:55:45.946Z"
+    },
+    {
+      "id": 1750272968024,
+      "originalId": 5,
+      "name": "ddd",
+      "avatar": "👤",
+      "phone": "555",
+      "isGroup": false,
+      "archivedDate": "2025-06-18T18:56:08.025Z",
+      "originalData": {
+        "name": "ddd",
+        "phone": "555",
+        "id": 5
+      }
+    },
+    {
+      "id": 1750273186069,
+      "originalId": 4,
+      "name": "ss",
+      "avatar": "👤",
+      "phone": "784541151",
+      "isGroup": false,
+      "archivedDate": "2025-06-18T18:59:46.069Z",
+      "originalData": {
+        "name": "ss",
+        "phone": "784541151",
+        "id": 4
+      }
     }
   ]
 }

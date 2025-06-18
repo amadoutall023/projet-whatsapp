@@ -5,6 +5,7 @@ export async function renderDashboard(container) {
    const [contactsRes, messagesRes] = await Promise.all([
   fetch('https://json-server-lt3n.onrender.com/contacts'),
   fetch('https://json-server-lt3n.onrender.com/messages')
+ 
 ]);
 
 
@@ -17,14 +18,14 @@ export async function renderDashboard(container) {
           <!-- Profile Section -->
           <div class="p-3 border-b border-gray-300">
             <div class="w-10 h-10 rounded-full bg-gray-400 overflow-hidden cursor-pointer hover:opacity-80 transition-opacity">
-              <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=40&h=40&fit=crop&crop=face" 
+              <img src="" 
                    alt="Profile" class="w-full h-full object-cover">
             </div>
           </div>
 
           <!-- Menu Items -->
           <div id="menu" class="flex-1 py-2">
-            <div class="menu-item active p-3 cursor-pointer flex justify-center items-center" data-tab="chats">
+            <div id="contact" class="menu-item active p-3 cursor-pointer flex justify-center items-center" data-tab="chats">
               <i class="fas fa-comment-dots text-[#54656f] text-xl"></i>
               <div class="menu-tooltip">Discussions</div>
             </div>
@@ -39,7 +40,7 @@ export async function renderDashboard(container) {
               <div class="menu-tooltip">Chaînes</div>
             </div>
             
-            <div class="menu-item p-3 cursor-pointer flex justify-center items-center" data-tab="communities">
+            <div id="groupe" class="menu-item p-3 cursor-pointer flex justify-center items-center" data-tab="communities">
               <i class="fas fa-users text-[#54656f] text-xl"></i>
               <div class="menu-tooltip">Communautés</div>
             </div>
@@ -87,10 +88,8 @@ export async function renderDashboard(container) {
                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/>
                   </svg>
                 </button>
-                <button  class="p-2 rounded-full hover:bg-white/20 transition-colors">
-                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
-                  </svg>
+                <button  onclick="archiverElement(false)" class="p-2 rounded-full hover:bg-white/20 transition-colors">
+                  <i class="fas fa-archive text-[#54656f] text-xl"></i>
                 </button>
               </div>
             </div>
@@ -99,7 +98,7 @@ export async function renderDashboard(container) {
             <div class="flex items-center bg-white rounded-lg p-2">
               <input id="searchInput" type="text" placeholder="Rechercher ou démarrer une nouvelle discussion" 
                      class="flex-1 px-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" />
-              <button id="newChatBtn" class="ml-2 text-gray-600 hover:text-blue-600">
+              <button id="newChatBtn" class="ml-2 text-gray-600 hover:text-blue-600 hidden">
                 <i class="fas fa-plus"></i>
               </button>
             </div>
@@ -110,13 +109,16 @@ export async function renderDashboard(container) {
             <!-- Les contacts/chats seront injectés ici dynamiquement -->
           </div>
         </div>
+        <div id="groupsList" class="p-4 hidden">
+  <!-- Liste dynamique des groupes ici -->
+</div>
 
         <!-- Main Chat Area -->
         <div class="flex-1 flex flex-col">
           <div class="instagram-gradient p-4 flex items-center justify-between text-white">
             <div class="flex items-center space-x-3">
               <div class="w-10 h-10 rounded-full bg-white/20 overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=40&h=40&fit=crop&crop=face" 
+                <img src="" 
                      alt="Contact" class="w-full h-full object-cover" />
               </div>
               <div>
@@ -195,6 +197,27 @@ export async function renderDashboard(container) {
     </form>
   </div>
 </div>
+<!-- Modal création groupe -->
+<div id="createGroupModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
+  <div class="bg-white rounded-lg p-6 w-96 max-w-full">
+    <h2 class="text-xl font-semibold mb-4">Créer un nouveau groupe</h2>
+
+    <!-- Message d'erreur -->
+    <p id="groupErrorMessage" class="text-red-600 text-sm mb-3"></p>
+
+    <label class="block mb-2 font-medium">Nom du groupe :</label>
+    <input id="groupNameInput" type="text" class="w-full border rounded px-3 py-2 mb-4" />
+
+    <label class="block mb-2 font-medium">Sélectionnez les membres :</label>
+    <div id="membersCheckboxList" class="max-h-40 overflow-y-auto border rounded p-2 mb-4"></div>
+
+    <div class="flex justify-end space-x-2">
+      <button id="cancelCreateGroup" class="px-4 py-2 rounded border hover:bg-gray-100">Annuler</button>
+      <button id="confirmCreateGroup" class="px-4 py-2 rounded instagram-gradient text-white hover:bg-blue-700">Créer</button>
+    </div>
+  </div>
+</div>
+
 
     `;
 
@@ -207,11 +230,30 @@ const messageInput = document.getElementById('messageInput'); // or whatever you
 const messageContent = messageInput.value;
 await sendMessage(messageContent);
 displayMessages();
+
 //  selectContact(contact);
 //     displayMessages();
 document.getElementById("popup").addEventListener("click", () => {
   document.getElementById("addContactModal").classList.remove("hidden");
 });
+const communityTab = document.querySelector('[data-tab="communities"]');
+if (communityTab) {
+  communityTab.addEventListener('click', () => {
+    afficherGroupesDansContactsList();
+    document.getElementById('newChatBtn')?.classList.remove('hidden');
+  });
+} else {
+  console.warn('Le bouton communautés est introuvable dans le DOM.');
+}
+
+
+ document.getElementById('contact').addEventListener('click', () => {
+    fetchContacts();
+    document.getElementById('newChatBtn')?.classList.add('hidden');
+  });
+
+
+
 
 document.getElementById("closeModal").addEventListener("click", () => {
   document.getElementById("addContactModal").classList.add("hidden");
@@ -219,47 +261,113 @@ document.getElementById("closeModal").addEventListener("click", () => {
 
 document.getElementById("addContactForm").addEventListener("submit", async (e) => {
   e.preventDefault();
-
-  const name = document.getElementById("contactName").value.trim();
-  const phone = document.getElementById("contactPhone").value.trim();
-let valid = true;
-
-    // Vérifie le nom
-    if (!name) {
-      contactName.style.borderColor = "red";
-      valid = false;
-    }
-
-    // Vérifie le numéro
-    if (!phone || isNaN(phone) || !Number.isInteger(Number(phone))) {
-      contactPhone.style.borderColor = "red";
-      valid = false;
-    }
-
-    if (!valid) return;
-
-    try {
-      const res = await fetch("https://json-server-lt3n.onrender.com/contacts", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, phone })
-      });
-
-      if (res.ok) {
-        addContactModal.classList.add("hidden");
-        addContactForm.reset();
-        fetchContacts(); // Recharge les contacts
-      } else {
-        contactName.style.borderColor = "red";
-        contactPhone.style.borderColor = "red";
-      }
-    } catch (err) {
-      console.error(err);
-      contactName.style.borderColor = "red";
-      contactPhone.style.borderColor = "red";
-    }
-  
+  await handleAddContact();
+  fetchContacts();
 });
+
+document.getElementById('cancelCreateGroup').addEventListener('click', () => {
+  document.getElementById('createGroupModal').classList.add('hidden');
+});
+
+document.getElementById('confirmCreateGroup').addEventListener('click', async () => {
+  const groupName = document.getElementById('groupNameInput').value.trim();
+  if (!groupName) {
+    alert('Veuillez entrer un nom pour le groupe.');
+    return;
+  }
+
+  const checkedBoxes = [...document.querySelectorAll('#membersCheckboxList input[type="checkbox"]:checked')];
+  const selectedMemberIds = checkedBoxes.map(cb => parseInt(cb.value));
+
+  if (selectedMemberIds.length < 2) {
+    alert('Veuillez sélectionner au moins 2 membres.');
+    return;
+  }
+
+  await ajouterGroupe(groupName, selectedMemberIds);
+
+  // Fermer modal et reset champs
+  document.getElementById('createGroupModal').classList.add('hidden');
+  document.getElementById('groupNameInput').value = '';
+});
+const newChatBtn = document.getElementById('newChatBtn');
+newChatBtn.addEventListener('click', ouvrirCreateGroupModal);
+
+document.getElementById('confirmCreateGroup').addEventListener('click', () => {
+  const name = document.getElementById('groupNameInput').value.trim();
+  const memberIds = Array.from(document.querySelectorAll('#membersCheckboxList input:checked'))
+    .map(cb => parseInt(cb.value));
+  const errorMessage = document.getElementById('groupErrorMessage');
+
+  // Réinitialiser le message d'erreur
+  errorMessage.textContent = '';
+
+  if (!name) {
+    errorMessage.textContent = '⚠️ Le groupe doit avoir un nom.';
+    return;
+  }
+
+  if (memberIds.length < 2) {
+    errorMessage.textContent = '⚠️ Sélectionnez au moins deux membres.';
+    return;
+  }
+
+  ajouterGroupe(name, memberIds);
+  document.getElementById('createGroupModal').classList.add('hidden');
+});
+document.getElementById('cancelCreateGroup').addEventListener('click', () => {
+  document.getElementById('createGroupModal').classList.add('hidden');
+  document.getElementById('groupErrorMessage').textContent = '';
+});
+
+// À ajouter dans votre fonction renderDashboard, après les autres événements
+
+// Gestion de l'onglet Archives
+const archivedTab = document.querySelector('[data-tab="archived"]');
+if (archivedTab) {
+  archivedTab.addEventListener('click', () => {
+    // Masquer le bouton nouveau chat pour les archives
+    const newChatBtn = document.getElementById('newChatBtn');
+    if (newChatBtn) newChatBtn.classList.add('hidden');
+    
+    // Afficher les archives
+    afficherArchives();
+    
+    // Optionnel : Ajouter une classe active pour l'onglet
+    document.querySelectorAll('[data-tab]').forEach(tab => tab.classList.remove('active'));
+    archivedTab.classList.add('active');
+  });
+}
+
+// Vous devrez aussi modifier vos autres onglets pour retirer la classe active
+const contactTab = document.getElementById('contact');
+if (contactTab) {
+  contactTab.addEventListener('click', () => {
+    fetchContacts();
+    const newChatBtn = document.getElementById('newChatBtn');
+    if (newChatBtn) newChatBtn.classList.add('hidden');
+    
+    // Retirer la classe active des autres onglets
+    document.querySelectorAll('[data-tab]').forEach(tab => tab.classList.remove('active'));
+    contactTab.classList.add('active');
+  });
+}
+
+const communityTab1 = document.querySelector('[data-tab="communities"]');
+if (communityTab1) {
+  communityTab1.addEventListener('click', () => {
+    afficherGroupesDansContactsList();
+    const newChatBtn = document.getElementById('newChatBtn');
+    if (newChatBtn) newChatBtn.classList.remove('hidden');
+    
+    // Retirer la classe active des autres onglets
+    document.querySelectorAll('[data-tab]').forEach(tab => tab.classList.remove('active'));
+    communityTab.classList.add('active');
+  });
+}
+
+
+
 
   } catch (error) {
     console.error("Erreur lors du chargement des données :", error);
